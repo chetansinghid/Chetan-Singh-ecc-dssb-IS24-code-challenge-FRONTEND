@@ -1,21 +1,28 @@
-<div class="product-list-header">
-    <span>Product Number</span>
-    <span>Product Name</span>
-    <span>Scrum Master</span>
-    <span>Product Owner</span>
-    <span>Developer Names</span>
-    <span>Start Date</span>
-    <span>Methodology</span>
-    <span>Repository</span>
+<div>
+    Total products: {{ products.length }}
 </div>
-<div *ngFor="let product of products" class="product-list">
-    <span>{{ product.pnumber }}</span>
-    <span>{{ product.pname }}</span>
-    <span>{{ product.scrumMaster }}</span>
-    <span>{{ product.powner }}</span>
-    <span>{{ getDeveloperNames(product.pdevelopers) }}</span>
-    <span>{{ product.startDate }}</span>
-    <span>{{ product.pmethodology }}</span>
-    <span><a [href]="product.githubLink" target="_blank">Github Link</a></span>
+<div class="table-container">
+    <ul>
+      <li class="title-container product-list">
+        <span>Product Number</span>
+        <span>Product Name</span>
+        <span>Scrum Master</span>
+        <span>Product Owner</span>
+        <span>Developer Names</span>
+        <span>Start Date</span>
+        <span>Methodology</span>
+        <span>Repository</span>
+      </li>
+      <li *ngFor="let product of products" class="product-list">
+        <span>{{ product.pnumber }}</span>
+        <span>{{ product.pname }}</span>
+        <span>{{ product.scrumMaster }}</span>
+        <span>{{ product.powner }}</span>
+        <span>{{ getDeveloperNames(product.pdevelopers) }}</span>
+        <span>{{ product.startDate }}</span>
+        <span>{{ product.pmethodology }}</span>
+        <span><a [href]="product.githubLink" target="_blank">Github Link</a></span>
+      </li>
+    </ul>
   </div>
   
