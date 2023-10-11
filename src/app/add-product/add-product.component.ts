@@ -55,6 +55,10 @@ export class AddProductComponent {
     }
   }
 
+  cancelAction() {
+    this.router.navigate(['/']);
+  }
+
   toggleErrorMessage() {
     this.showErrorMessage = true;
   }
