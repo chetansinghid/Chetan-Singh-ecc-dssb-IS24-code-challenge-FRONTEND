@@ -1,3 +1,29 @@
+
+.info-action {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  background-color: #f2f2f2; 
+  padding: 10px; 
+}
+
+.info-action span:first-child {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.info-action button {
+  background-color: #007bff; 
+  color: #fff; 
+  border: none; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+}
+
+.info-action button:hover {
+  background-color: #0056b3; 
+}
+
 .table-container {
   max-height: 500px; 
   overflow: auto;

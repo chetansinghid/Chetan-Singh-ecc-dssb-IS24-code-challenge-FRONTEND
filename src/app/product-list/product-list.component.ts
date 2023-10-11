@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +11,7 @@ import { Product } from '../product.model';
 export class ProductListComponent {
   products: Product[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data: Product[]) => {
@@ -21,5 +22,9 @@ export class ProductListComponent {
 
   getDeveloperNames(names: string) : string {
     return names.substring(1,names.length-1);
+  }
+  
+  addProduct() {
+    this.router.navigate(['/add-product']);
   }
 }

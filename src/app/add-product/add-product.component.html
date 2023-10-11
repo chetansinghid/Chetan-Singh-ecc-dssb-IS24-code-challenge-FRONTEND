@@ -1,0 +1,30 @@
+<div class="product-form-container">
+    <h2>Add Product</h2>
+    <p *ngIf="showErrorMessage"><b>Error while submitting the request! Please try again.</b></p>
+    <p *ngIf="showDevelopersNameExceedError"><b>Error! The number of developers exceeds the limit.</b></p>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" formControlName="productName" required>
+  
+      <label for="scrumMaster">Scrum Master:</label>
+      <input type="text" id="scrumMaster" formControlName="scrumMaster" required>
+  
+      <label for="productOwner">Product Owner:</label>
+      <input type="text" id="productOwner" formControlName="productOwner" required>
+  
+      <label for="developerNames">Developer Names (up to 5, seperated with commas):</label>
+      <textarea id="developerNames" formControlName="developerNames" required></textarea>
+  
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" formControlName="startDate" required>
+  
+      <label for="methodology">Methodology:</label>
+      <select id="methodology" formControlName="methodology" required>
+        <option value="Agile">Agile</option>
+        <option value="Waterfall">Waterfall</option>
+      </select>
+  
+      <button type="submit" [disabled]="productForm.invalid">Save</button>
+    </form>
+  </div>
+  
