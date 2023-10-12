@@ -20,6 +20,10 @@ export class ProductListComponent {
     });
   }
 
+  modifyActionHandler(pNumber: number) {
+    this.router.navigate(["/edit-product/" + pNumber]);
+  }
+
   getDeveloperNames(names: string) : string {
     return names.substring(1,names.length-1);
   }

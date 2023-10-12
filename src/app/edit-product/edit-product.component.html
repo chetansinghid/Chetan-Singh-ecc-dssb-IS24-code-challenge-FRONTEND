@@ -1,0 +1,36 @@
+<div class="product-form-container">
+  <h2>Edit Product</h2>
+  <p *ngIf="errorFetchingProduct"><b>Error while fetching data for product. Please try again.</b></p>
+  <p *ngIf="showErrorMessage"><b>Error while submitting the request! Please try again.</b></p>
+  <p *ngIf="showDevelopersNameExceedError"><b>Error! The number of developers exceeds the limit.</b></p>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" *ngIf="!errorFetchingProduct">
+    <label for="productNumber">Product Number: {{product?.pnumber}}</label>
+    
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" formControlName="productName" [value]="product?.pname" required>
+
+    <label for="scrumMaster">Scrum Master:</label>
+    <input type="text" id="scrumMaster" formControlName="scrumMaster" [value]="product?.scrumMaster" required>
+
+    <label for="productOwner">Product Owner:</label>
+    <input type="text" id="productOwner" formControlName="productOwner" [value]="product?.powner" required>
+
+    <label for="developerNames">Developer Names (up to 5, separated with commas):</label>
+    <textarea id="developerNames" formControlName="developerNames" [value]="product?.pdevelopers" required></textarea>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" formControlName="startDate" [value]="product?.startDate" [disabled]="true">
+
+    <label for="methodology">Methodology:</label>
+    <select id="methodology" formControlName="methodology" [value]="product?.pmethodology" required>
+      <option value="Agile">Agile</option>
+      <option value="Waterfall">Waterfall</option>
+    </select>
+
+    <label for="githubLink">Github Link:</label>
+    <input type="text" id="githubLink" formControlName="githubLink" [value]="product?.githubLink" required>
+
+    <button type="submit" [disabled]="productForm?.invalid">Save</button>
+    <button (click)="cancelAction()">Cancel</button>
+  </form>
+</div>

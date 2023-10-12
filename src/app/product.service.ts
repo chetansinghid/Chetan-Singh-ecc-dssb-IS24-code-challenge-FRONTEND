@@ -18,6 +18,10 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl + '/all');
   }
 
+  getProductById(id: string): Observable<Product> {
+    return this.http.get<Product>(this.apiUrl + "/" + id);
+  }
+
   saveProduct(product: Product): Observable<Product> {
     const { pnumber, ...productRemainder } = product;
     return this.http.post<Product>(this.apiUrl + '/add', productRemainder).pipe(
@@ -27,4 +31,14 @@ export class ProductService {
       })
     );
   }
+
+  updateProduct(id: number, product: Product): Observable<Product> {
+    return this.http.patch<Product>(this.apiUrl + "/update/" + id, product).pipe(
+      catchError((error: any) => {
+        console.log('Error while making PATCH request for ' + id + ":", error);
+        return throwError(error);
+      })
+    );
+  }
+  
 }
