@@ -26,10 +26,19 @@ export class EditProductComponent implements OnInit {
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId != null) {
-      this.productService.getProductById(productId).subscribe((data: Product) => {
-        this.product = data;
-        this.initializeForm(data);
-      });
+      const storedProduct = localStorage.getItem(`product_${productId}`);
+      if (storedProduct) {
+        this.product = JSON.parse(storedProduct);
+        if (this.product) {
+          this.initializeForm(this.product);
+        }
+      } else {
+        this.productService.getProductById(productId).subscribe((data: Product) => {
+          this.product = data;
+          this.initializeForm(data);
+          localStorage.setItem(`product_${productId}`, JSON.stringify(data));
+        });
+      }
     } else {
       this.errorFetchingProduct = true;
     }
@@ -48,8 +57,8 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.productForm != null && this.productForm.valid && this.product != null) {
-      const updateProduct: Product = {
+    if (this.productForm.valid && this.product && this.checkDevelopersFormat()) {
+      const updatedProductData: Product = {
         pnumber: this.product.pnumber,
         pname: this.productForm.get('productName')?.value,
         scrumMaster: this.productForm.get('scrumMaster')?.value,
@@ -59,8 +68,13 @@ export class EditProductComponent implements OnInit {
         pmethodology: this.productForm.get('methodology')?.value,
         githubLink: this.productForm.get('githubLink')?.value,
       };
-      this.productService.updateProduct(this.product.pnumber, updateProduct).subscribe(
+
+      this.product = updatedProductData;
+      localStorage.setItem(`product_${this.product.pnumber}`, JSON.stringify(updatedProductData));
+
+      this.productService.updateProduct(this.product.pnumber, updatedProductData).subscribe(
         (response: Product) => {
+          this.showErrorMessage = false;
           this.router.navigate(['/']);
         },
         (error: any) => {
